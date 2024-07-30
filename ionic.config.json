@@ -1,0 +1,7 @@
+{
+  "name": "visitasApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
