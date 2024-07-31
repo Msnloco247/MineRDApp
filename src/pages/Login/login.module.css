@@ -1,0 +1,27 @@
+.container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    height: 80vh;
+    margin: 10%;
+   
+    
+    img{
+        width:250px;
+        height:250px;
+        border-radius:150px;
+        object-fit: cover;
+        margin-bottom: 40px;
+    }
+    h2{
+        font-weight: bold;
+    }
+}
+
+
+.loginButton{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-evenly;
+}
