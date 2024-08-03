@@ -10,6 +10,7 @@ import { UserViewModel } from "../models/userView.model";
 
 
 const MINERD_KEY = "MINERD";
+import { isPlatform } from "@ionic/react";
 
 export function useStorage(){
     const [store, setStore] = useState<Storage>();
@@ -20,12 +21,15 @@ export function useStorage(){
             name:'minerdDb',
             driverOrder: [CordovaSQLiteDriver._driver,Drivers.IndexedDB, Drivers.LocalStorage]
         });
-        await newStore.defineDriver(CordovaSQLiteDriver)
+        if (!isPlatform("desktop")) {
+            await newStore.defineDriver(CordovaSQLiteDriver);
+        }
         const store = await newStore.create();
         setStore(store);
 
         const storedUsers = await store.get(MINERD_KEY) || [];
         setUsers(storedUsers);
+=======
     }
     useEffect(()=>{
         
@@ -73,7 +77,13 @@ export function useStorage(){
        
 
       };
-    
+     const storageGet = async (databaseKey: string) => {
+        return await store?.get(databaseKey) || [];
+    }
+
+    function storageSet(databaseKey: string, data: any[]) {
+        store?.set(databaseKey, data);
+    }
     
     
    
@@ -81,8 +91,10 @@ export function useStorage(){
         users,
         setUsers,
         createUser,
-        loginUser
-    }
+        loginUser,
+         storageGet,
+        storageSet,
+
 }
 
 export {MINERD_KEY}
