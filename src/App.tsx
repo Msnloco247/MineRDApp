@@ -50,7 +50,6 @@ const App: React.FC = () => {
             <IonRouterOutlet id="main">
               <Route path="/" component={Home} exact={true}/>
 
-              
               <Route path="/login" exact={true}>
                 <Login/>
               </Route>
@@ -74,8 +73,6 @@ const App: React.FC = () => {
                 <VisitMap />
               </Route>
               
-              {/* Redirigir rutas desconocidas a la página principal */}
-              <Redirect from="*" to="/" />
             </IonRouterOutlet>
           </IonSplitPane>
         </IonReactRouter>
