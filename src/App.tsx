@@ -37,32 +37,35 @@ import Home from './pages/Home/Home';
 import './theme/global.css'
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
+import { AuthProvider } from './helpers/AuthProvider';
+import PrivateRoute from './components/PrivateRoute';
 
 setupIonicReact();
 
 const App: React.FC = () => {
   return (
     <IonApp>
-      <IonReactRouter>
-        <IonSplitPane contentId="main">
-          <Menu />
-          <IonRouterOutlet id="main">
-            <Route path="/" component={Home} exact={true}/>
+       <AuthProvider>
+        <IonReactRouter>
+          <IonSplitPane contentId="main">
+            <Menu />
+            <IonRouterOutlet id="main">
+              <Route path="/" component={Home} exact={true}/>
 
-            
-            <Route path="/login" exact={true}>
-              <Login/>
-            </Route>
+              
+              <Route path="/login" exact={true}>
+                <Login/>
+              </Route>
 
-            <Route path="/register" exact={true}>
-              <Register/>
-            </Route>
-            <Route path="/folder/:name" exact={true}>
-              <Page />
-            </Route>
-          </IonRouterOutlet>
-        </IonSplitPane>
-      </IonReactRouter>
+              <Route path="/register" exact={true}>
+                <Register/>
+              </Route>
+
+              <PrivateRoute path="/folder/:name" exact={true} component={Page} />
+            </IonRouterOutlet>
+          </IonSplitPane>
+        </IonReactRouter>
+      </AuthProvider>
     </IonApp>
   );
 };

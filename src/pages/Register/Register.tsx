@@ -1,17 +1,24 @@
 import { IonButton, IonInput, IonItem, IonLabel, IonList } from "@ionic/react";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import work from "../../assets/work.webp";
 import styles from "./register.module.css";
 import {
   Camera,
   CameraResultType,
   CameraSource,
-  Photo,
 } from "@capacitor/camera";
-import { RegisterForm } from "../../models/register.model";
+import { initialFormData, RegisterUserForm } from "../../models/register.model";
+import { validateForm, ValidationRegisterErrors } from "../../helpers/validateRegisterForm";
+import { useStorage } from "../../hooks/useStorage";
+import { hashPassword } from "../../helpers/encryptPassword";
+import { useAuth } from '../../helpers/AuthProvider'
+import { Redirect } from "react-router";
+
 
 const Register: React.FC = () => {
-  const [formData, setFormData] = useState<RegisterForm>({
+  const {user } = useAuth();
+
+  const [formData, setFormData] = useState<RegisterUserForm>({
     name: "",
     lastName: "",
     password: "",
@@ -20,7 +27,15 @@ const Register: React.FC = () => {
     confirmPassword: "",
     photo: null,
   });
+  const [errors, setErrors] = useState<ValidationRegisterErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const {createUser} = useStorage();
+
+  const resetForm = () => {
+    setFormData(initialFormData);
+    setErrors({});
+  };
   const takePhoto = async () => {
     const image = await Camera.getPhoto({
       resultType: CameraResultType.Uri,
@@ -31,20 +46,49 @@ const Register: React.FC = () => {
     setFormData((prev) => ({ ...prev, photo: image }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-  };
+  const handleSubmit = useCallback(
+    async (e?: React.FormEvent) => {
+      if (e) {
+        e.preventDefault();
+      }
+      const validationErrors = validateForm(formData);
+      setErrors(validationErrors);
+      if (Object.keys(validationErrors).length === 0) {
+        setIsSubmitting(true);
+        try {
+          if(formData.password != null || formData.password != undefined) {
+            const hashedPassword = await hashPassword(formData.password);
+            const updatedFormData = { ...formData, password: hashedPassword };
+            
+            await createUser(updatedFormData);
+            window.location.href = '/Home';
+            resetForm();
+          }
+        } catch (error) {
+          console.error('Error submitting form', error);
+        } finally {
+          setIsSubmitting(false);
+        }
+      }
+    },
+    [formData]
+  );
+
+  useEffect(() => {
+
+  }, [isSubmitting, formData]);
 
   return (
     <>
-      <div className={styles.container}>
+      {
+        !user ? <div className={styles.container}>
         <img src={work} alt="working" />
         <h2>Registro</h2>
         <p style={{ textAlign: "center" }}>
           Lorem ipsum dolor sit amet consectetur explicabo laborum
         </p>
 
-        <form onSubmit={handleSubmit} className={styles.loginForm}>
+        <form  className={styles.loginForm}>
           <IonList>
             <IonItem>
               <IonInput
@@ -98,6 +142,7 @@ const Register: React.FC = () => {
                     password: e.detail.value,
                   }));
                 }}
+                type="password"
                 label="Contrasena"
               ></IonInput>
             </IonItem>
@@ -110,6 +155,8 @@ const Register: React.FC = () => {
                     confirmPassword: e.detail.value,
                   }));
                 }}
+                type="password"
+
                 label="Confirmar Contrasena"
               ></IonInput>
             </IonItem>
@@ -124,9 +171,14 @@ const Register: React.FC = () => {
           <IonButton routerLink="/" fill="outline">
             Regresar
           </IonButton>
-          <IonButton routerLink="/login">Registrarse</IonButton>
+          <IonButton type="submit"  disabled={isSubmitting} onClick={(e) => handleSubmit(e)}>
+          {isSubmitting ? 'Registrando...' : 'Registrarse'}
+          </IonButton>
         </div>
       </div>
+      :
+      <Redirect to="/folder/Inbox" />
+      }
     </>
   );
 };
