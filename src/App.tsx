@@ -37,6 +37,8 @@ import Home from './pages/Home/Home';
 import './theme/global.css'
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
+import IncidentRegister from './pages/Incidents/IncidentRegister';
+import IncidentList from './pages/Incidents/IncidentList';
 
 setupIonicReact();
 
@@ -48,7 +50,6 @@ const App: React.FC = () => {
           <Menu />
           <IonRouterOutlet id="main">
             <Route path="/" component={Home} exact={true}/>
-
             
             <Route path="/login" exact={true}>
               <Login/>
@@ -57,9 +58,13 @@ const App: React.FC = () => {
             <Route path="/register" exact={true}>
               <Register/>
             </Route>
-            <Route path="/folder/:name" exact={true}>
+
+            <Route path="/folder/incident-register" exact={true} component={IncidentRegister}/>
+            <Route path="/folder/incident-list" exact={true} component={IncidentList}/>
+
+            {/* <Route path="/folder/:name" exact={true}>
               <Page />
-            </Route>
+            </Route> */}
           </IonRouterOutlet>
         </IonSplitPane>
       </IonReactRouter>
