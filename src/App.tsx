@@ -1,6 +1,6 @@
 import { IonApp, IonRouterOutlet, IonSplitPane, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import Menu from './components/Menu';
 import Page from './pages/Page';
 
@@ -20,23 +20,20 @@ import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
-/**
- * Ionic Dark Mode
- * -----------------------------------------------------
- * For more info, please see:
- * https://ionicframework.com/docs/theming/dark-mode
- */
-
-/* import '@ionic/react/css/palettes/dark.always.css'; */
-/* import '@ionic/react/css/palettes/dark.class.css'; */
+/* Ionic Dark Mode */
 import '@ionic/react/css/palettes/dark.system.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import './theme/global.css';
+
+// Importa las nuevas páginas
 import Home from './pages/Home/Home';
-import './theme/global.css'
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
+import RegisterVisit from './pages/RegisterVisit';
+import VisitTypes from './pages/VisitTypes';
+import VisitMap from './pages/VisitMap';
 
 setupIonicReact();
 
@@ -47,19 +44,40 @@ const App: React.FC = () => {
         <IonSplitPane contentId="main">
           <Menu />
           <IonRouterOutlet id="main">
-            <Route path="/" component={Home} exact={true}/>
+            <Switch>
+              {/* Ruta principal */}
+              <Route path="/" component={Home} exact={true} />
 
-            
-            <Route path="/login" exact={true}>
-              <Login/>
-            </Route>
+              {/* Rutas de autenticación */}
+              <Route path="/login" exact={true}>
+                <Login />
+              </Route>
 
-            <Route path="/register" exact={true}>
-              <Register/>
-            </Route>
-            <Route path="/folder/:name" exact={true}>
-              <Page />
-            </Route>
+              <Route path="/register" exact={true}>
+                <Register />
+              </Route>
+
+              {/* Rutas nuevas */}
+              <Route path="/register-visit" exact={true}>
+                <RegisterVisit />
+              </Route>
+
+              <Route path="/visit-types" exact={true}>
+                <VisitTypes />
+              </Route>
+
+              <Route path="/visit-map" exact={true}>
+                <VisitMap />
+              </Route>
+
+              {/* Ruta para manejar folders */}
+              <Route path="/folder/:name" exact={true}>
+                <Page />
+              </Route>
+
+              {/* Redirigir rutas desconocidas a la página principal */}
+              <Redirect from="*" to="/" />
+            </Switch>
           </IonRouterOutlet>
         </IonSplitPane>
       </IonReactRouter>
