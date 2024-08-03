@@ -31,6 +31,9 @@ import './theme/global.css';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
+import { AuthProvider } from './helpers/AuthProvider';
+import PrivateRoute from './components/PrivateRoute';
+
 import RegisterVisit from './pages/RegisterVisit';
 import VisitTypes from './pages/VisitTypes';
 import VisitMap from './pages/VisitMap';
@@ -40,24 +43,25 @@ setupIonicReact();
 const App: React.FC = () => {
   return (
     <IonApp>
-      <IonReactRouter>
-        <IonSplitPane contentId="main">
-          <Menu />
-          <IonRouterOutlet id="main">
-            <Switch>
-              {/* Ruta principal */}
-              <Route path="/" component={Home} exact={true} />
+       <AuthProvider>
+        <IonReactRouter>
+          <IonSplitPane contentId="main">
+            <Menu />
+            <IonRouterOutlet id="main">
+              <Route path="/" component={Home} exact={true}/>
 
-              {/* Rutas de autenticación */}
+              
               <Route path="/login" exact={true}>
-                <Login />
+                <Login/>
               </Route>
 
               <Route path="/register" exact={true}>
-                <Register />
+                <Register/>
               </Route>
 
-              {/* Rutas nuevas */}
+              <PrivateRoute path="/folder/:name" exact={true} component={Page} />
+              
+               {/* Rutas nuevas */}
               <Route path="/register-visit" exact={true}>
                 <RegisterVisit />
               </Route>
@@ -69,18 +73,14 @@ const App: React.FC = () => {
               <Route path="/visit-map" exact={true}>
                 <VisitMap />
               </Route>
-
-              {/* Ruta para manejar folders */}
-              <Route path="/folder/:name" exact={true}>
-                <Page />
-              </Route>
-
+              
               {/* Redirigir rutas desconocidas a la página principal */}
               <Redirect from="*" to="/" />
-            </Switch>
-          </IonRouterOutlet>
-        </IonSplitPane>
-      </IonReactRouter>
+            </IonRouterOutlet>
+          </IonSplitPane>
+        </IonReactRouter>
+      </AuthProvider>
+
     </IonApp>
   );
 };

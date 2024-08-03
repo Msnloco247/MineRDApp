@@ -1,20 +1,11 @@
 import { Photo } from "@capacitor/camera";
 
-export interface RegisterUserForm {
+export interface User {
     name: string | undefined |null;
     lastName: string | undefined | null;
     email: string | undefined | null;
     password: string | undefined | null;
-    confirmPassword: string | undefined | null;
     matricula: string | undefined | null;
     photo: Photo |null;
+    id: string;
 }
-export const initialFormData: RegisterUserForm = {
-    name: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    matricula: '',
-    photo: null,
-};

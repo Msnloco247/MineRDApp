@@ -2,10 +2,17 @@ import React from 'react'
 import styles from './home.module.css'
 import { IonButton } from '@ionic/react'
 import work from '../../assets/work.webp'
+import { useAuth } from '../../helpers/AuthProvider'
+import { Redirect } from 'react-router'
+
 
 const Home: React.FC = () => {
-  return (
-    <div  >
+  const {user } = useAuth();
+
+  return (<>
+  
+    {!user ?
+      <div>
       <div className={styles.container}>
         <img src={work} alt="working" />
         <h2 >Bienvenido</h2>
@@ -22,6 +29,10 @@ const Home: React.FC = () => {
       </div>
 
     </div>
+    :
+    <Redirect to="/folder/Inbox" />
+    }
+    </>
   )
 }
 
