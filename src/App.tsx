@@ -37,6 +37,9 @@ import PrivateRoute from './components/PrivateRoute';
 import RegisterVisit from './pages/RegisterVisit';
 import VisitTypes from './pages/VisitTypes';
 import VisitMap from './pages/VisitMap';
+import IncidentList from './pages/Incidents/IncidentList';
+import IncidentRegister from './pages/Incidents/IncidentRegister';
+import About from './pages/About';
 
 setupIonicReact();
 
@@ -57,21 +60,19 @@ const App: React.FC = () => {
               <Route path="/register" exact={true}>
                 <Register/>
               </Route>
-
-              <PrivateRoute path="/folder/:name" exact={true} component={Page} />
               
                {/* Rutas nuevas */}
-              <Route path="/register-visit" exact={true}>
-                <RegisterVisit />
-              </Route>
+               <PrivateRoute path="/incident-register" exact={true} component={IncidentRegister}/>
 
-              <Route path="/visit-types" exact={true}>
-                <VisitTypes />
-              </Route>
+              <PrivateRoute path="/incident-list" exact={true} component={IncidentList}/>
 
-              <Route path="/visit-map" exact={true}>
-                <VisitMap />
-              </Route>
+              <PrivateRoute path="/about" exact={true} component={About}/>
+
+              <PrivateRoute path="/register-visit" exact={true} component={RegisterVisit}/>
+
+              <PrivateRoute path="/visit-types" exact={true} component={VisitTypes}/>
+
+              <PrivateRoute path="/visit-map" exact={true} component={VisitMap}/>
               
             </IonRouterOutlet>
           </IonSplitPane>
