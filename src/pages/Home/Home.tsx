@@ -2,8 +2,8 @@ import React from 'react'
 import styles from './home.module.css'
 import { IonButton } from '@ionic/react'
 import work from '../../assets/work.webp'
-import { useAuth } from '../../helpers/AuthProvider'
 import { Redirect } from 'react-router'
+import { useAuth } from '../../helpers/AuthProvider'
 
 
 const Home: React.FC = () => {

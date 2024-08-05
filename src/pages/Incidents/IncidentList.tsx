@@ -1,4 +1,4 @@
-import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent, IonDatetime, IonDatetimeButton, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonModal, IonPage, IonText, IonTextarea, IonThumbnail, IonTitle, IonToolbar, useIonLoading, useIonViewDidEnter, useIonViewDidLeave, useIonViewWillEnter } from '@ionic/react';
+import { IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonContent, IonDatetime, IonDatetimeButton, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonMenuButton, IonModal, IonPage, IonText, IonTextarea, IonThumbnail, IonTitle, IonToolbar, useIonLoading, useIonViewDidEnter, useIonViewDidLeave, useIonViewWillEnter } from '@ionic/react';
 import { AudioData, useAudio } from '../../hooks/useAudio'
 import './style.css';
 import { useEffect, useState } from 'react';
@@ -95,6 +95,9 @@ const IncidentList: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
+        <IonButtons slot="start">
+            <IonMenuButton />
+          </IonButtons>
           <IonTitle>Lista de Incidencias</IonTitle>
           <IonButtons slot='end'>
             {/* <IonButton fill='solid' onClick={() => {loadIncidents()}}><IonIcon md={refresh}/></IonButton> */}

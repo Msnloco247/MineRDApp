@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel } from '@ionic/react';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel, IonButtons, IonMenuButton } from '@ionic/react';
 
 // Definir la interfaz para el tipo de visita
 interface VisitType {
@@ -20,6 +20,9 @@ const VisitTypes: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
+        <IonButtons slot="start">
+            <IonMenuButton />
+          </IonButtons>
           <IonTitle>Tipos de Visitas</IonTitle>
         </IonToolbar>
       </IonHeader>

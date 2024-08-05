@@ -90,7 +90,7 @@ const Login: React.FC = () => {
         </div>
       </div> 
       :
-      <Redirect to="/folder/Inbox" />
+      <Redirect to="/incident-register" />
       }
     </>
   );

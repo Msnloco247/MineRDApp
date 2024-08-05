@@ -1,5 +1,4 @@
-import { IonAlert, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonContent, IonHeader, IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonList, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import './page.css';
+import { IonButtons, IonMenuButton, IonAlert, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonContent, IonHeader, IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonList, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 // import Author from '../assets/author.jpg';
 // import { mail, logoGithub, logoLinkedin } from 'ionicons/icons';
 import { IncidentData } from '../models/IncidentData';
@@ -22,13 +21,16 @@ const About: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
+          <IonButtons slot="start">
+            <IonMenuButton />
+          </IonButtons>
           <IonTitle>Acerca de</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent className='ion-padding'>
       <IonCard>
           <IonCardHeader>
-            <IonLabel><img src={user?.photo?.webPath} alt="FOTO DEL USUARIO LOGEADO" width="100%" height="100%" /></IonLabel>
+            <IonLabel><img src={user?.photo != undefined ? user?.photo : ''} alt="FOTO DEL USUARIO LOGEADO" width="100%" height="100%" /></IonLabel>
             <IonCardSubtitle color="primary"><h4>{user?.name} {user?.lastName}</h4></IonCardSubtitle>
             <IonCardSubtitle>{user?.matricula}</IonCardSubtitle>
           </IonCardHeader>

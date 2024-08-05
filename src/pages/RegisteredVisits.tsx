@@ -1,6 +1,6 @@
 // src/pages/RegisteredVisits.tsx
 import React, { useState, useEffect } from 'react';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel } from '@ionic/react';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel, IonButtons, IonMenuButton } from '@ionic/react';
 
 // Define una interfaz para las visitas
 interface Visit {
@@ -22,6 +22,9 @@ const RegisteredVisits: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
+      <IonButtons slot="start">
+            <IonMenuButton />
+          </IonButtons>
         <IonToolbar>
           <IonTitle>Visitas Registradas</IonTitle>
         </IonToolbar>

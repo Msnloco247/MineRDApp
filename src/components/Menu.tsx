@@ -88,7 +88,6 @@ const appPages: AppPage[] = [
   },
 ];
 
-const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
 const Menu: React.FC = () => {
   const location = useLocation();
@@ -100,8 +99,7 @@ const Menu: React.FC = () => {
     <IonMenu contentId="main" type="overlay">
       <IonContent>
         <IonList id="inbox-list">
-          <IonListHeader>Inbox</IonListHeader>
-          <IonNote>hi@ionicframework.com</IonNote>
+          <IonListHeader>MineRD APP</IonListHeader>
           {appPages.map((appPage, index) => (
             <IonMenuToggle key={index} autoHide={false}>
               <IonItem
@@ -119,13 +117,7 @@ const Menu: React.FC = () => {
         </IonList>
 
         <IonList id="labels-list">
-          <IonListHeader>Labels</IonListHeader>
-          {labels.map((label, index) => (
-            <IonItem lines="none" key={index}>
-              <IonIcon aria-hidden="true" slot="start" icon={bookmarkOutline} />
-              <IonLabel>{label}</IonLabel>
-            </IonItem>
-          ))}
+         
             <IonItem lines="full">
               <IonIcon aria-hidden="true" slot="start" icon={logOutOutline} />
               <IonLabel onClick={logout}>Desconectarse</IonLabel>
