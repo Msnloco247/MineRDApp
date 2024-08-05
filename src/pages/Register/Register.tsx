@@ -25,7 +25,7 @@ const Register: React.FC = () => {
     email: "",
     matricula: "",
     confirmPassword: "",
-    photo: null,
+    photo: "",
   });
   const [errors, setErrors] = useState<ValidationRegisterErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -36,14 +36,21 @@ const Register: React.FC = () => {
     setFormData(initialFormData);
     setErrors({});
   };
-  const takePhoto = async () => {
-    const image = await Camera.getPhoto({
-      resultType: CameraResultType.Uri,
-      source: CameraSource.Photos,
-      quality: 100,
-    });
 
-    setFormData((prev) => ({ ...prev, photo: image }));
+  const takePhoto = async () => {
+    try {
+      const image = await Camera.getPhoto({
+        resultType: CameraResultType.DataUrl,
+        source: CameraSource.Photos,
+        quality: 100,
+      });
+
+      // Update state with the photo URI
+      setFormData((prev) => ({ ...prev, photo: image.dataUrl }));
+
+    } catch (error) {
+      console.error('Error taking photo:', error);
+    }
   };
 
   const handleSubmit = useCallback(
@@ -53,16 +60,16 @@ const Register: React.FC = () => {
       }
       const validationErrors = validateForm(formData);
       setErrors(validationErrors);
+
       if (Object.keys(validationErrors).length === 0) {
         setIsSubmitting(true);
         try {
           if(formData.password != null || formData.password != undefined) {
             const hashedPassword = await hashPassword(formData.password);
             const updatedFormData = { ...formData, password: hashedPassword };
-            
             await createUser(updatedFormData);
-            window.location.href = '/Home';
             resetForm();
+            window.location.href = '/';
           }
         } catch (error) {
           console.error('Error submitting form', error);
@@ -177,7 +184,7 @@ const Register: React.FC = () => {
         </div>
       </div>
       :
-      <Redirect to="/folder/Inbox" />
+      <Redirect to="/incident-register" />
       }
     </>
   );

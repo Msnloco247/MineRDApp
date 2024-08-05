@@ -5,6 +5,6 @@ export interface UserViewModel {
     lastName: string | undefined | null;
     email: string | undefined | null;
     matricula: string | undefined | null;
-    photo: Photo |null;
+    photo: string |null | undefined;
     id: string;
 }

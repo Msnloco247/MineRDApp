@@ -6,6 +6,6 @@ export interface User {
     email: string | undefined | null;
     password: string | undefined | null;
     matricula: string | undefined | null;
-    photo: Photo |null;
+    photo: string |null | undefined;
     id: string;
 }

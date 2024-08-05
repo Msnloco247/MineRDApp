@@ -32,7 +32,12 @@ import {
   addOutline, // Asegúrate de tener el icono adecuado importado
   addSharp,
   listOutline, // Asegúrate de tener el icono adecuado importado
-  listSharp
+  listSharp,
+  informationCircle,
+  informationCircleOutline,
+  list,
+  createOutline,
+  create
 } from 'ionicons/icons';
 import './Menu.css';
 import { useAuth } from '../helpers/AuthProvider'
@@ -47,39 +52,15 @@ interface AppPage {
 const appPages: AppPage[] = [
   {
     title: 'Registro de Incidencias',
-    url: '/folder/incident-register',
-    iosIcon: mailOutline,
-    mdIcon: mailSharp
+    url: '/incident-register',
+    iosIcon: createOutline,
+    mdIcon: create
   },
   {
     title: 'Lista de Incidencias',
-    url: '/folder/incident-list',
-    iosIcon: paperPlaneOutline,
-    mdIcon: paperPlaneSharp
-  },
-  {
-    title: 'Favorites',
-    url: '/folder/Favorites',
-    iosIcon: heartOutline,
-    mdIcon: heartSharp
-  },
-  {
-    title: 'Archived',
-    url: '/folder/Archived',
-    iosIcon: archiveOutline,
-    mdIcon: archiveSharp
-  },
-  {
-    title: 'Trash',
-    url: '/folder/Trash',
-    iosIcon: trashOutline,
-    mdIcon: trashSharp
-  },
-  {
-    title: 'Spam',
-    url: '/folder/Spam',
-    iosIcon: warningOutline,
-    mdIcon: warningSharp
+    url: '/incident-list',
+    iosIcon: listOutline,
+    mdIcon: list
   },
   {
     title: 'Register Visit',
@@ -98,10 +79,15 @@ const appPages: AppPage[] = [
     url: '/visit-map',
     iosIcon: mapOutline,
     mdIcon: mapSharp
-  }
+  },
+  {
+    title: 'Acerca de',
+    url: '/about',
+    iosIcon: informationCircleOutline,
+    mdIcon: informationCircle
+  },
 ];
 
-const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
 const Menu: React.FC = () => {
   const location = useLocation();
@@ -113,8 +99,7 @@ const Menu: React.FC = () => {
     <IonMenu contentId="main" type="overlay">
       <IonContent>
         <IonList id="inbox-list">
-          <IonListHeader>Inbox</IonListHeader>
-          <IonNote>hi@ionicframework.com</IonNote>
+          <IonListHeader>MineRD APP</IonListHeader>
           {appPages.map((appPage, index) => (
             <IonMenuToggle key={index} autoHide={false}>
               <IonItem
@@ -132,13 +117,7 @@ const Menu: React.FC = () => {
         </IonList>
 
         <IonList id="labels-list">
-          <IonListHeader>Labels</IonListHeader>
-          {labels.map((label, index) => (
-            <IonItem lines="none" key={index}>
-              <IonIcon aria-hidden="true" slot="start" icon={bookmarkOutline} />
-              <IonLabel>{label}</IonLabel>
-            </IonItem>
-          ))}
+         
             <IonItem lines="full">
               <IonIcon aria-hidden="true" slot="start" icon={logOutOutline} />
               <IonLabel onClick={logout}>Desconectarse</IonLabel>

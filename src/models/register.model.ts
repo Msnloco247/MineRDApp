@@ -7,7 +7,7 @@ export interface RegisterUserForm {
     password: string | undefined | null;
     confirmPassword: string | undefined | null;
     matricula: string | undefined | null;
-    photo: Photo |null;
+    photo: string |null | undefined;
 }
 export const initialFormData: RegisterUserForm = {
     name: '',
@@ -16,5 +16,5 @@ export const initialFormData: RegisterUserForm = {
     password: '',
     confirmPassword: '',
     matricula: '',
-    photo: null,
+    photo: '',
 };

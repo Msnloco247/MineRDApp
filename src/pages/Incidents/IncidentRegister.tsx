@@ -1,4 +1,4 @@
-import { IonButton, IonButtons, IonCard, IonContent, IonDatetime, IonDatetimeButton, IonHeader, IonIcon, IonInput, IonLabel, IonModal, IonPage, IonTextarea, IonThumbnail, IonTitle, IonToolbar, useIonLoading, useIonViewWillEnter } from '@ionic/react';
+import { IonButton, IonButtons, IonCard, IonContent, IonDatetime, IonDatetimeButton, IonHeader, IonIcon, IonInput, IonLabel, IonMenuButton, IonModal, IonPage, IonTextarea, IonThumbnail, IonTitle, IonToolbar, useIonLoading, useIonViewWillEnter } from '@ionic/react';
 // import './style.css';
 import { images, camera, play, pause, stop } from 'ionicons/icons';
 import { useState } from 'react';
@@ -93,6 +93,9 @@ const IncidentRegister: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar>
+        <IonButtons slot="start">
+            <IonMenuButton />
+          </IonButtons>
           <IonTitle>Registro de Incidencias</IonTitle>
         </IonToolbar>
       </IonHeader>

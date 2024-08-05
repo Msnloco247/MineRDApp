@@ -6,6 +6,10 @@ const config: CapacitorConfig = {
   webDir: 'dist',  // Asegúrate de que esto coincida con el directorio de construcción
   server: {
     androidScheme: 'https'
+  },
+  plugins: {
+    Camera: {
+    },
   }
 };
 

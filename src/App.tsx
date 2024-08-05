@@ -1,6 +1,6 @@
 import { IonApp, IonRouterOutlet, IonSplitPane, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import Menu from './components/Menu';
 import Page from './pages/Page';
 
@@ -37,52 +37,48 @@ import PrivateRoute from './components/PrivateRoute';
 import RegisterVisit from './pages/RegisterVisit';
 import VisitTypes from './pages/VisitTypes';
 import VisitMap from './pages/VisitMap';
+import IncidentList from './pages/Incidents/IncidentList';
+import IncidentRegister from './pages/Incidents/IncidentRegister';
+import About from './pages/About';
 
 setupIonicReact();
 
-const App: React.FC = () => {
+const Main: React.FC = () => {
+  const location = useLocation();
+  const showMenu = [ "/incident-register", "/incident-list", "/about", "/register-visit", "/visit-types", "/visit-map"].includes(location.pathname);
+
   return (
-    <IonApp>
-       <AuthProvider>
-        <IonReactRouter>
-          <IonSplitPane contentId="main">
-            <Menu />
-            <IonRouterOutlet id="main">
-              <Route path="/" component={Home} exact={true}/>
-
-              
-              <Route path="/login" exact={true}>
-                <Login/>
-              </Route>
-
-              <Route path="/register" exact={true}>
-                <Register/>
-              </Route>
-
-              <PrivateRoute path="/folder/:name" exact={true} component={Page} />
-              
-               {/* Rutas nuevas */}
-              <Route path="/register-visit" exact={true}>
-                <RegisterVisit />
-              </Route>
-
-              <Route path="/visit-types" exact={true}>
-                <VisitTypes />
-              </Route>
-
-              <Route path="/visit-map" exact={true}>
-                <VisitMap />
-              </Route>
-              
-              {/* Redirigir rutas desconocidas a la página principal */}
-              <Redirect from="*" to="/" />
-            </IonRouterOutlet>
-          </IonSplitPane>
-        </IonReactRouter>
-      </AuthProvider>
-
-    </IonApp>
+    <IonSplitPane contentId="main">
+      {showMenu && <Menu />}
+      <IonRouterOutlet id="main">
+        <Route path="/" component={Home} exact={true} />
+        <Route path="/login" exact={true}>
+          <Login />
+        </Route>
+        <Route path="/register" exact={true}>
+          <Register />
+        </Route>
+        {/* Rutas nuevas */}
+        <PrivateRoute path="/incident-register" exact={true} component={IncidentRegister} />
+        <PrivateRoute path="/incident-list" exact={true} component={IncidentList} />
+        <PrivateRoute path="/about" exact={true} component={About} />
+        <PrivateRoute path="/register-visit" exact={true} component={RegisterVisit} />
+        <PrivateRoute path="/visit-types" exact={true} component={VisitTypes} />
+        <PrivateRoute path="/visit-map" exact={true} component={VisitMap} />
+      </IonRouterOutlet>
+    </IonSplitPane>
   );
 };
+
+const App: React.FC = () => (
+  <IonApp>
+    <AuthProvider>
+      <IonReactRouter>
+        <Main />
+      </IonReactRouter>
+    </AuthProvider>
+  </IonApp>
+);
+
 
 export default App;
