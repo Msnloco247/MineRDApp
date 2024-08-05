@@ -1,0 +1,39 @@
+/* register.module.css */
+.container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    margin: 10%;
+    
+    img {
+      width: 200px;
+      height: 200px;
+      border-radius: 150px;
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+    
+    h2 {
+      font-weight: bold;
+    }
+  
+    span {
+      text-align: center;
+      color: green;
+      cursor: pointer;
+    }
+  }
+  
+  .loginButton {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-evenly;
+  }
+  
+  .error {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 10px;
+  }
+  
