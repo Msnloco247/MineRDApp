@@ -10,7 +10,10 @@ import {
   IonNote,
 } from '@ionic/react';
 import { useLocation } from 'react-router-dom';
+
 import {
+    logOut, 
+      logOutOutline,
   archiveOutline,
   archiveSharp,
   bookmarkOutline,
@@ -32,6 +35,7 @@ import {
   listSharp
 } from 'ionicons/icons';
 import './Menu.css';
+import { useAuth } from '../helpers/AuthProvider'
 
 interface AppPage {
   url: string;
@@ -101,6 +105,9 @@ const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
 
 const Menu: React.FC = () => {
   const location = useLocation();
+  const { logout} = useAuth();
+
+
 
   return (
     <IonMenu contentId="main" type="overlay">
@@ -132,6 +139,10 @@ const Menu: React.FC = () => {
               <IonLabel>{label}</IonLabel>
             </IonItem>
           ))}
+            <IonItem lines="full">
+              <IonIcon aria-hidden="true" slot="start" icon={logOutOutline} />
+              <IonLabel onClick={logout}>Desconectarse</IonLabel>
+            </IonItem>
         </IonList>
       </IonContent>
     </IonMenu>
