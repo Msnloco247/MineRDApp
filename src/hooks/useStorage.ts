@@ -29,7 +29,7 @@ export function useStorage(){
 
         const storedUsers = await store.get(MINERD_KEY) || [];
         setUsers(storedUsers);
-=======
+
     }
     useEffect(()=>{
         
@@ -94,7 +94,7 @@ export function useStorage(){
         loginUser,
          storageGet,
         storageSet,
-
+    }
 }
 
-export {MINERD_KEY}
+export {MINERD_KEY};
